@@ -1,6 +1,9 @@
 'use strict';
 (()=>{
- const key='socialcta.session.v2',form=document.getElementById('login-form'),error=document.getElementById('login-error');
+ const environment=window.SOCIAL_CTA_CONFIG?.environment||'runtest';
+ const key='socialcta.session.v3.'+environment,form=document.getElementById('login-form'),error=document.getElementById('login-error');
+ document.title=(environment==='production'?'PRODUCTION':'RUNTEST')+' · '+document.title;
+ form.insertAdjacentHTML('afterbegin','<p class="environment-label">'+(environment==='production'?'PRODUCTION':'RUNTEST')+'</p>');
  const requested=new URLSearchParams(location.search).get('next');
  const next=['campaigns.html','owners.html','links.html'].includes(requested)?requested:'campaigns.html';
  form.onsubmit=async event=>{
